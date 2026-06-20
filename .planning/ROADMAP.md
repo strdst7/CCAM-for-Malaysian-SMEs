@@ -42,10 +42,12 @@ Plans:
   3. API requests require HMAC-signed API keys; requests without valid authentication return 401
   4. Every subsystem action is recorded in an immutable, append-only, tenant-scoped audit log
   5. Database row-level tenant isolation prevents cross-tenant data leakage (verified by test)
-**Plans**: TBD
+**Plans**: 3 plans across 3 waves
 
 Plans:
-- (To be defined during plan-phase 2)
+- [ ] 02-01-PLAN.md — Data Foundation: package scaffold, all entity models (8 tables), Alembic migration, docker-compose for PostgreSQL + Redis
+- [ ] 02-02-PLAN.md — API & Auth: FastAPI app, HMAC-SHA256 middleware, audit logger, RLS policies, health endpoint, Redis/ARQ connectivity
+- [ ] 02-03-PLAN.md — CLI & Infrastructure: tenant provisioning CLI, Dockerfile/Helm chart, GitHub Actions CI, integration tests
 
 ### Phase 3: Simulator-Backend Integration
 **Goal**: The simulator CLI engine is exposed as a REST API endpoint, scenarios are manageable via CRUD, and the safety gate enforces simulator validation before any production change.
