@@ -24,10 +24,13 @@ CCAM converts unstructured WhatsApp messages from Malaysian F&B customers into s
   3. Safety layer rejects scenarios with negative stock, >120% station overload, or infinite loops with clear error messages
   4. KPI output includes stockout frequency, waste rate, bottleneck frequency, order completion time, and throughput
   5. All five engines (demand generator, order generator, kitchen engine, stock engine, KPI engine) produce coherent end-to-end simulation results from a single scenario YAML
-**Plans**: TBD
+**Plans**: 4 plans across 3 waves
 
 Plans:
-- (To be defined during plan-phase 1)
+- [ ] 01-01-PLAN.md — Project scaffold, data models, RNG manager, scenario loader
+- [ ] 01-02-PLAN.md — Click CLI, safety layer (Gate 1 + Gate 2), output formatters
+- [ ] 01-03-PLAN.md — Five engine pipeline (demand → order → kitchen → stock → KPI)
+- [ ] 01-04-PLAN.md — Full test suite with determinism verification, CLI integration tests
 
 ### Phase 2: Backend Foundation
 **Goal**: A tenant-isolated FastAPI + PostgreSQL + Redis backend running on Kubernetes with HMAC authentication and an immutable audit log.
@@ -96,7 +99,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Simulator Core (CLI) | 0/0 | Not started | - |
+| 1. Simulator Core (CLI) | 0/4 | Planned | - |
 | 2. Backend Foundation | 0/0 | Not started | - |
 | 3. Simulator-Backend Integration | 0/0 | Not started | - |
 | 4. Microflows & Worker Jobs | 0/0 | Not started | - |

@@ -1,0 +1,29 @@
+simulation:
+  total_hours: 8
+  tick_interval_minutes: 1
+  max_steps: 10000
+
+demand_pattern:
+  - start_hour: 0
+    end_hour: 8
+    rate: 10
+    item_weights:
+      nasi_lemak: 1.0
+
+menu:
+  - id: "nasi_lemak"
+    name: "Nasi Lemak"
+    prep_time_seconds: 300
+    ingredients:
+      rice: 1
+    station: "hot_kitchen"
+
+stations:
+  - id: "hot_kitchen"
+    name: "Hot Kitchen"
+    staff_count: 2
+
+stock:
+  rice: -50
+
+supplier_delays: {}
