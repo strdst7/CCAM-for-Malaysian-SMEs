@@ -93,3 +93,22 @@ def load_scenario(path: str) -> Scenario:
         stock=stock,
         supplier_delays=supplier_delays,
     )
+
+
+def resolve_scenario_path(path: str) -> str:
+    """Resolve scenario path, checking common extensions.
+
+    If path ends with .yaml or .yml, return as-is.
+    Otherwise try path + '.yaml', then path + '.yml'.
+    Raises FileNotFoundError if none exist.
+    """
+    p = Path(path)
+    if p.suffix in (".yaml", ".yml"):
+        return path
+    for ext in (".yaml", ".yml"):
+        candidate = p.with_suffix(ext)
+        if candidate.exists():
+            return str(candidate)
+    raise FileNotFoundError(
+        f"Scenario file not found: {path} (tried {path}.yaml, {path}.yml)"
+    )
