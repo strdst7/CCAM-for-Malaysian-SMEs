@@ -1,0 +1,73 @@
+simulation:
+  total_hours: 8
+  tick_interval_minutes: 1
+  max_steps: 10000
+
+demand_pattern:
+  - start_hour: 0
+    end_hour: 4
+    rate: 30
+    item_weights:
+      nasi_lemak: 0.4
+      roti_canai: 0.3
+      teh_tarik: 0.3
+  - start_hour: 4
+    end_hour: 8
+    rate: 15
+    item_weights:
+      nasi_lemak: 0.2
+      roti_canai: 0.5
+      teh_tarik: 0.3
+
+menu:
+  - id: "nasi_lemak"
+    name: "Nasi Lemak"
+    prep_time_seconds: 300
+    ingredients:
+      rice: 1
+      egg: 1
+      sambal: 1
+      anchovies: 1
+    station: "hot_kitchen"
+  - id: "roti_canai"
+    name: "Roti Canai"
+    prep_time_seconds: 180
+    ingredients:
+      dough: 1
+      dhal: 1
+    station: "flat_top"
+  - id: "teh_tarik"
+    name: "Teh Tarik"
+    prep_time_seconds: 120
+    ingredients:
+      tea: 1
+      milk: 1
+      sugar: 1
+    station: "beverage"
+
+stations:
+  - id: "hot_kitchen"
+    name: "Hot Kitchen"
+    staff_count: 2
+  - id: "flat_top"
+    name: "Flat Top"
+    staff_count: 1
+  - id: "beverage"
+    name: "Beverage Station"
+    staff_count: 1
+
+stock:
+  rice: 100
+  egg: 50
+  sambal: 80
+  anchovies: 60
+  dough: 40
+  dhal: 30
+  tea: 200
+  milk: 100
+  sugar: 500
+
+supplier_delays:
+  rice: 1440
+  egg: 1440
+  tea: 2880

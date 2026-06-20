@@ -511,7 +511,7 @@ def compute_kpis(state: SimState) -> dict:
 | A2 | Click's CliRunner can be used to test the full simulation pipeline in-process | Testing | Low — CliRunner is designed for exactly this purpose; documented in Click's testing guide |
 | A3 | Floating-point time accumulation is deterministic across platforms using Python's float (IEEE 754 double) | Architecture | Medium — Python floats are IEEE 754 on all platforms, but intermediate operations in C extensions could differ. Mitigation: use integer microseconds for simulation time. |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **YAML schema design** — What specific fields should the scenario YAML contain for the first iteration? Need to design the full schema before planning begins. Recommendation: Start with a simple schema (menu items with prep times, stations with staff counts, ingredients with stock levels, demand rate blocks) and iterate.
 
