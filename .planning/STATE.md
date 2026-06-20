@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-06-21)
 
 **Core value:** Nothing touches a real restaurant until the simulator proves it's safe.
-**Current focus:** Phase 1 — Simulator Core (CLI)
+**Current focus:** Phase 2 — Backend Foundation
 
 ## Current Position
 
-Phase: 1 of 5 (Simulator Core (CLI))
-Plan: 4 of 4 in current phase
-Status: Phase 1 complete
-Last activity: 2026-06-21 — Plan 01-04: full test suite (44 tests, 0 failures)
+Phase: 2 of 5 (Backend Foundation)
+Plan: 0 of 0 in current phase
+Status: Context gathered, ready for planning
+Last activity: 2026-06-21 — Phase 2 context captured (6 areas discussed)
 
-Progress: [██████████] 100% (complete)
+Progress: [░░░░░░░░░░] 0% (planned)
 
 ## Performance Metrics
 
@@ -31,7 +31,7 @@ Progress: [██████████] 100% (complete)
 
 **Recent Trend:**
 - Last 5 plans: 01-01 → 01-04 consecutive completion
-- Trend: Phase 1 delivered
+- Trend: Phase 1 delivered, Phase 2 context gathered
 
 ## Accumulated Context
 
@@ -50,6 +50,12 @@ Recent decisions affecting current work:
 - (Pipeline): demand → order → kitchen → stock → kpi
 - (Safety): Gate 1 at load, Gate 2 per-tick
 - (Events): kw_only=True on all event dataclasses
+- (Phase 2): Same repo, separate packages (backend/ + ccam_sim/)
+- (Phase 2): Flat tenant-scoped schema with ULID PKs + tenant_id, Alembic migrations
+- (Phase 2): Redis for sessions + cache + ARQ task queue
+- (Phase 2): HMAC-SHA256 auth with versioned key rotation
+- (Phase 2): RLS-enforced INSERT-only audit log with before/after diffs
+- (Phase 2): CLI-first tenant provisioning, REST deferred to Phase 3
 
 ### Pending Todos
 
@@ -63,10 +69,11 @@ None yet.
 
 | Category | Item | Status | Deferred At |
 |----------|------|--------|-------------|
-| *(none)* | | | |
+| REST API | Tenant provisioning API | Deferred to Phase 3 | 2026-06-21 |
+| Audit | Cryptographic hash chain for audit log | Not needed for v1 | 2026-06-21 |
 
 ## Session Continuity
 
-Last session: 2026-06-21 (test suite execution)
-Stopped at: Phase 1 complete — 44 tests pass, deterministic replay verified (SIM-08)
-Resume file: None
+Last session: 2026-06-21 (Phase 2 context discussion)
+Stopped at: Phase 2 context gathered — 6 decisions captured
+Resume file: .planning/phases/02-backend-foundation/02-CONTEXT.md
