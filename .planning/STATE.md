@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-06-21)
 ## Current Position
 
 Phase: 5 of 5 (Advanced Engines)
-Plan: 0 of 4 in current phase
-Status: Planned — 4 plans across 2 waves ready for execution
-Last activity: 2026-06-21 — Phase 5 planned (4 plans: 05-01 through 05-04)
+Plan: 4 of 4 in current phase
+Status: Complete — 4 plans executed across 2 waves
+Last activity: 2026-06-21 — Phase 5 executed (all 5 engines: parser, menu, forecast, procurement, notification + backend integration)
 
-Progress: [                    ] 0% (0 of 4 plans complete)
+Progress: [####################] 100% (4 of 4 plans complete)
 
 ## Performance Metrics
 
@@ -31,10 +31,11 @@ Progress: [                    ] 0% (0 of 4 plans complete)
 | 2 - Backend Foundation | 3 | Complete | N/A |
 | 3 - Simulator-Backend Integration | 2 | Complete | ~4 min |
 | 4 - Microflows & Worker Jobs | 2 | Complete | 9 min |
+| 5 - Advanced Engines | 4 | Complete | ~9 min |
 
 **Recent Trend:**
-- Last plans: 02-03 → 03-01 → 03-02 → 04-01 → 04-02
-- Trend: Phase 1 + Phase 2 + Phase 3 + Phase 4 delivered
+- Last plans: 02-03 → 03-01 → 03-02 → 04-01 → 04-02 → 05-01 → 05-02 → 05-03 → 05-04
+- Trend: Phase 1 + Phase 2 + Phase 3 + Phase 4 + Phase 5 delivered
 
 ## Accumulated Context
 
@@ -96,8 +97,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-06-21 (Phase 4 complete — Microflows & Worker Jobs)
-Stopped at: Plan 04-02 delivered — 2 of 2 plans complete in Phase 4
+Last session: 2026-06-21 (Phase 5 complete — Advanced Engines)
+Stopped at: Plan 05-04 delivered — 4 of 4 plans complete in Phase 5
 Resume file: .planning/phases/05-advanced-engines/
 
 ### Phase 4 Deliverables
@@ -107,7 +108,35 @@ Resume file: .planning/phases/05-advanced-engines/
 | 04-01 | `mcf/` (7 files) | Microflow DSL compiler + bytecode executor library (MCF-01) |
 | 04-02 | `backend/` (7 created, 4 modified) | ARQ worker job infrastructure with retry/DLQ/idempotency (MCF-02) |
 
+### Phase 5 Decisions
+
+- (Phase 5): ROADMAP overrides stale PROJECT.md Out of Scope — all 5 engines in scope
+- (Phase 5): Standalone packages under `engines/` with own `pyproject.toml` — names: `ccam_parser`, `ccam_menu`, `ccam_forecast`, `ccam_procurement`, `ccam_notification`
+- (Phase 5): Parser regex-first (80%+ patterns), DistilBERT NER ONNX fallback when confidence < 0.6
+- (Phase 5): Menu uses Google OR-Tools CP-SAT MILP solver with hard safety constraints (no negative margin, no price below cost)
+- (Phase 5): Forecast ensemble all 3 (LSTM + Prophet + ARIMA), simulator-generated training data, batch retraining via ARQ worker
+- (Phase 5): LSTM requires tensorflow (optional dep — cp314 has no TF wheels); Prophet + ARIMA work without it
+- (Phase 5): Procurement ABC adapter interface with v1 email-based PDF PO adapter (SendGrid/SMTP)
+- (Phase 5): Notifications email (SendGrid/SMTP) + in-app (in-memory store) only in v1
+- (Phase 5): Sim validation required for menu + forecast changes before production
+- (Phase 5): Safety gate (INT-04) still deferred — not in Phase 5 scope
+
 ### Plans Completed
 
 - 04-01: Microflow DSL Compiler & Bytecode Executor Library — 3 tasks, 7 files
 - 04-02: ARQ Worker Job Infrastructure — 3 tasks, 7 files created, 4 files modified
+- 05-01: Parser + Menu Engine — 2 tasks, 14 files
+- 05-02: Forecast Engine — 3 tasks, 11 files
+- 05-03: Procurement + Notification Engine — 2 tasks, 16 files
+- 05-04: Backend Integration — 3 tasks, 15 files created/modified
+
+### Phase 5 Deliverables
+
+| Plan | Files | Purpose |
+|------|-------|---------|
+| 05-01 | `engines/parser/` (7 files) | Regex-first + DistilBERT ONNX NER parser pipeline (ENG-01) |
+| 05-01 | `engines/menu/` (7 files) | OR-Tools CP-SAT MILP solver with safety constraints (ENG-02) |
+| 05-02 | `engines/forecast/` (11 files) | LSTM + Prophet + ARIMA ensemble, trainer, ARQ worker (ENG-03) |
+| 05-03 | `engines/procurement/` (8 files) | Supplier ABC, PDF PO gen, email adapter (ENG-04) |
+| 05-03 | `engines/notification/` (8 files) | Email + in-app channels, notification router (ENG-05) |
+| 05-04 | `backend/` (15 files) | 3 DB models, migration 004, 5 API routers, 2 ARQ workers, main.py wiring |
