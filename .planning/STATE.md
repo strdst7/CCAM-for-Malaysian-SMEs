@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-06-21)
 
 **Core value:** Nothing touches a real restaurant until the simulator proves it's safe.
-**Current focus:** Phase 4 — Microflows & Worker Jobs
+**Current focus:** Phase 5 — Advanced Engines
 
 ## Current Position
 
-Phase: 4 of 5 (Microflows & Worker Jobs)
-Plan: 2 of 2 in current phase
-Status: Complete
-Last activity: 2026-06-21 — Plan 04-02 complete (ARQ worker job infrastructure)
+Phase: 5 of 5 (Advanced Engines)
+Plan: 0 of TBD in current phase
+Status: Context gathered — ready for planning
+Last activity: 2026-06-21 — Phase 5 context captured (12 decisions across 6 areas)
 
-Progress: [████████████████████] 100% (2/2 plans)
+Progress: [                    ] 0% (0 plans)
 
 ## Performance Metrics
 
