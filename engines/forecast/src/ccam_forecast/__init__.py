@@ -1,5 +1,6 @@
 __version__ = "0.1.0"
 
+from ccam_forecast.ensemble import ForecastEnsemble
 from ccam_forecast.lstm_model import LSTMModel
 from ccam_forecast.prophet_model import ProphetModel
 from ccam_forecast.arima_model import ARIMAModel
@@ -20,6 +21,7 @@ from ccam_forecast.exceptions import (
 )
 
 __all__ = [
+    "ForecastEnsemble",
     "LSTMModel",
     "ProphetModel",
     "ARIMAModel",
