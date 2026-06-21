@@ -19,6 +19,7 @@ dependencies = [
     "bcrypt>=4.2.0",
     "python-dotenv>=1.0.0",
     "ccam-sim",
+    "ccam-mcf",
 ]
 
 [build-system]
@@ -43,6 +44,7 @@ testpaths = ["tests"]
 
 [tool.uv.sources]
 ccam-sim = { path = "../", editable = true }
+ccam-mcf = { path = "../mcf", editable = true }
 
 [project.scripts]
 ccam-backend = "ccam_backend.cli:cli"

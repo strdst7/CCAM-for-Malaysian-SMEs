@@ -8,6 +8,7 @@ from .simulation_run import SimulationRun
 from .scenario import Scenario
 from .audit_log import AuditLog
 from .api_key import ApiKey
+from .worker_job import WorkerJob
 
 __all__ = [
     "Base",
@@ -20,4 +21,5 @@ __all__ = [
     "Scenario",
     "AuditLog",
     "ApiKey",
+    "WorkerJob",
 ]
