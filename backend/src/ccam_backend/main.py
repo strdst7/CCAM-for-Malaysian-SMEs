@@ -4,6 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
 from ccam_backend.api.health import router as health_router
 from ccam_backend.api.simulate import router as simulate_router
+from ccam_backend.api.scenarios import router as scenarios_router
+from ccam_backend.api.tenants import router as tenants_router
 from ccam_backend.redis_client import create_redis_pool, close_redis_pool, create_arq, close_arq
 from ccam_backend.database import async_session_factory
 from ccam_backend.auth.middleware import PUBLIC_PATHS
@@ -81,3 +83,5 @@ class AuthMiddleware(BaseHTTPMiddleware):
 app.add_middleware(AuthMiddleware)
 app.include_router(health_router, prefix="/api/v1")
 app.include_router(simulate_router, prefix="/api/v1")
+app.include_router(scenarios_router, prefix="/api/v1")
+app.include_router(tenants_router, prefix="/api/v1")

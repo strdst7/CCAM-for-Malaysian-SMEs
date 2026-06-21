@@ -7,7 +7,7 @@ from ccam_backend.auth.hmac import verify_signature
 from ccam_backend.auth.api_keys import get_active_key_by_prefix, verify_key
 from ccam_backend.models.api_key import ApiKey
 
-PUBLIC_PATHS = {"/api/v1/health", "/docs", "/openapi.json", "/redoc"}
+PUBLIC_PATHS = {"/api/v1/health", "/api/v1/tenants", "/docs", "/openapi.json", "/redoc"}
 AuthContext = tuple[str, str]
 
 
