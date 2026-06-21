@@ -260,21 +260,20 @@ def _linearize(step_dict: dict[str, dict], entry: str) -> Bytecode:
             step_ids.append(step_id)
 
         elif sd["type"] == "switch":
-            # LOAD source
-            instructions.append(Instruction(opcode=Opcode.LOAD, args={"source": sd["source"]}))
-            step_ids.append(step_id)
-
             case_items = list(sd["cases"].items())
             case_jif_indices: list[int] = []
 
             for case_value, case_target in case_items:
+                # LOAD source (fresh for each case — COMPARE consumes both operands)
+                instructions.append(Instruction(opcode=Opcode.LOAD, args={"source": sd["source"]}))
+                step_ids.append(step_id)
                 # LOAD_CONST case_value, COMPARE eq
                 instructions.append(Instruction(opcode=Opcode.LOAD_CONST, args={"value": case_value}))
                 step_ids.append(step_id)
                 instructions.append(Instruction(opcode=Opcode.COMPARE, args={"operator": "eq"}))
                 step_ids.append(step_id)
 
-                # JUMP_IF_FALSE -> next case check (placeholder)
+                # JUMP_IF_FALSE -> next case check (placeholder, fixed up below)
                 jif_idx = len(instructions)
                 instructions.append(Instruction(opcode=Opcode.JUMP_IF_FALSE))
                 step_ids.append(step_id)
@@ -293,13 +292,22 @@ def _linearize(step_dict: dict[str, dict], entry: str) -> Bytecode:
             fixups.append((default_jump_idx, sd["default"]))
 
             # Fix up case JUMP_IF_FALSE targets (local forward refs)
-            for i, jif_idx in enumerate(case_jif_indices):
-                if i + 1 < len(case_items):
-                    # Jump to the next case's LOAD_CONST (skip past JUMP)
-                    instructions[jif_idx].target = jif_idx + 2
-                else:
-                    # Last case: jump to default JUMP
-                    instructions[jif_idx].target = default_jump_idx
+            # Each case occupies: LOAD + LOAD_CONST + COMPARE + JUMP_IF_FALSE + JUMP = 5 instructions.
+            # JUMP_IF_FALSE should skip past its JUMP to the next case's LOAD,
+            # or to the default JUMP for the last case.
+            for jif_idx in case_jif_indices:
+                instructions[jif_idx].target = jif_idx + 2
+
+            # Emit case target code blocks (with RETURN after each)
+            for _case_value, case_target in case_items:
+                _emit_step(case_target)
+                instructions.append(Instruction(opcode=Opcode.RETURN))
+                step_ids.append(step_id)
+
+            # Emit default code block (with RETURN)
+            _emit_step(sd["default"])
+            instructions.append(Instruction(opcode=Opcode.RETURN))
+            step_ids.append(step_id)
 
     _emit_step(entry)
 
