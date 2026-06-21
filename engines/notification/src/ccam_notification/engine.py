@@ -4,10 +4,8 @@ from datetime import datetime
 from typing import Any
 
 from ccam_notification.models import (Notification, NotificationChannel,
-    NotificationPriority, NotificationStatus, NotificationTemplate, SendResult)
+    NotificationPriority, NotificationStatus, SendResult)
 from ccam_notification.router import NotificationRouter
-from ccam_notification.email_channel import EmailChannel
-from ccam_notification.inapp_channel import InAppChannel
 
 
 class NotificationEngine:

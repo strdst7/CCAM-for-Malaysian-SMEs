@@ -6,8 +6,7 @@ from email.mime.text import MIMEText
 from email.utils import formatdate
 
 from ccam_notification.models import (Notification, NotificationTemplate,
-    NotificationStatus, SendResult, NotificationChannel)
-from ccam_notification.exceptions import DeliveryError
+    SendResult, NotificationChannel)
 
 
 class EmailChannel:

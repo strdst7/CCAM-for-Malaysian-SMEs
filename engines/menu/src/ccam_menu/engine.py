@@ -9,7 +9,7 @@ Orchestrates:
 from ccam_menu.models import MenuItem, MenuConstraints, OptimizationObjective, MenuRecommendation
 from ccam_menu.safety import MenuSafetyConstraints
 from ccam_menu.solver import MenuSolver
-from ccam_menu.exceptions import MenuError, SafetyViolationError
+from ccam_menu.exceptions import SafetyViolationError
 
 
 class MenuEngine:

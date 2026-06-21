@@ -1,6 +1,5 @@
 """Data models for message parsing results."""
 from dataclasses import dataclass, field
-from typing import Any
 
 
 @dataclass

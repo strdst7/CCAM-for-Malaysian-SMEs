@@ -69,7 +69,7 @@ class EmailSupplierAdapter(SupplierAdapter):
             from sendgrid import SendGridAPIClient
             from sendgrid.helpers.mail import (
                 Mail, Attachment, FileContent, FileName,
-                FileType, Disposition, ContentId, Email,
+                FileType, Disposition, Email,
             )
 
             message = Mail(

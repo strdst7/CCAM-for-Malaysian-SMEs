@@ -4,7 +4,7 @@ All supplier-specific implementations subclass SupplierAdapter and
 implement the four core methods.
 """
 from abc import ABC, abstractmethod
-from ccam_procurement.models import PurchaseOrder, POStatus, SupplierContact
+from ccam_procurement.models import PurchaseOrder, POStatus
 
 
 class SupplierAdapter(ABC):

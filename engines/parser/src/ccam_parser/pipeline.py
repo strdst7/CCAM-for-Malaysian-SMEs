@@ -10,7 +10,6 @@ Flow:
 Each field gets a per-field confidence score and the overall
 result has an overall_confidence.
 """
-from typing import Any
 
 from ccam_parser.regex_engine import RegexEngine
 from ccam_parser.ner_engine import NEREngine

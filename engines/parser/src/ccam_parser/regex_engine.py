@@ -9,10 +9,8 @@ Covers 80%+ of common patterns:
 """
 import re
 from dataclasses import dataclass, field
-from typing import Any
 
-from ccam_parser.models import ParsedItem, ParsedOrder
-from ccam_parser.exceptions import RegexParseError
+from ccam_parser.models import ParsedItem
 
 
 # ── Pattern definitions ──────────────────────────────────────────

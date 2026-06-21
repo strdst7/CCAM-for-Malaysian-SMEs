@@ -1,9 +1,9 @@
 import asyncio
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, Request
 from pydantic import BaseModel, Field
 from ccam_backend.auth.middleware import verify_hmac
 from ccam_parser import parse_message
-from ccam_parser.models import ParsedOrder, ParsedItem
+from ccam_parser.models import ParsedOrder
 
 router = APIRouter(tags=["parser"])
 

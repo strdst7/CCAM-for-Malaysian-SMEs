@@ -1,4 +1,4 @@
-from sqlalchemy import String, Integer, Text, JSON, DateTime, ForeignKey, Float
+from sqlalchemy import String, Integer, Text, JSON, DateTime, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 from ccam_backend.models.base import Base, ULIDMixin, TimestampMixin
 

@@ -15,7 +15,6 @@ from typing import Any
 
 import numpy as np
 
-from ccam_parser.models import ParsedItem, ParsedOrder
 from ccam_parser.exceptions import NERError
 
 
@@ -86,7 +85,7 @@ class NEREngine:
             input_ids = np.array([[101] + [ord(c) for c in message[:256]] + [102]], dtype=np.int64)
             attention_mask = np.ones_like(input_ids)
 
-            outputs = self._session.run(
+            self._session.run(
                 None,
                 {"input_ids": input_ids, "attention_mask": attention_mask},
             )
@@ -94,7 +93,6 @@ class NEREngine:
             # Post-process output logits into structured entities
             # For v1, decode simple patterns from the output.
             # Full implementation would use a tokenizer + label mapping.
-            logits = outputs[0]
 
             # Simple entity extraction from logits
             items = []

@@ -8,7 +8,7 @@ These constraints are NON-OVERRIDABLE (D-08):
 5. No price decrease > 30% of current price on any item
 6. Minimum 1 item per category must remain active
 """
-from ccam_menu.models import MenuItem, MenuConstraints, PriceChange, MenuRecommendation
+from ccam_menu.models import MenuItem, MenuConstraints, MenuRecommendation
 from ccam_menu.exceptions import SafetyViolationError
 
 

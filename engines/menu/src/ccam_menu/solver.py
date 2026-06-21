@@ -5,7 +5,6 @@ Problem formulation:
 - Constraints: price bounds, margin floors, category variety, total size
 - Objective: maximize weighted profit + variety + simplicity + price stability
 """
-from typing import Any
 
 from ccam_menu.models import (
     MenuItem, MenuConstraints, OptimizationObjective,

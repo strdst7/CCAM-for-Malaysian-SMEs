@@ -7,15 +7,13 @@ Generates a standardized PO document with:
 - Terms and notes
 """
 from io import BytesIO
-from datetime import datetime
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
 from reportlab.lib import colors
 from reportlab.platypus import (SimpleDocTemplate, Table, TableStyle,
     Paragraph, Spacer, HRFlowable)
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.enums import TA_RIGHT, TA_CENTER
-from ccam_procurement.models import PurchaseOrder, POLineItem, POStatus
+from ccam_procurement.models import PurchaseOrder
 from ccam_procurement.exceptions import POGenerationError
 
 
@@ -40,7 +38,7 @@ class POGenerator:
             elements = []
 
             # Title
-            elements.append(Paragraph(f"<b>PURCHASE ORDER</b>", styles["Title"]))
+            elements.append(Paragraph("<b>PURCHASE ORDER</b>", styles["Title"]))
             elements.append(Spacer(1, 5*mm))
 
             # PO Info
@@ -87,7 +85,7 @@ class POGenerator:
 
             # Notes
             if po.notes:
-                elements.append(Paragraph(f"<b>Notes:</b>", styles["Normal"]))
+                elements.append(Paragraph("<b>Notes:</b>", styles["Normal"]))
                 elements.append(Paragraph(po.notes, styles["Normal"]))
 
             # Build PDF

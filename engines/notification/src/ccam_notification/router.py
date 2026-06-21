@@ -3,8 +3,6 @@
 Routes notifications to the appropriate channel(s) based on
 the notification configuration and user preferences.
 """
-import string
-from typing import Any
 
 from ccam_notification.models import (Notification, NotificationTemplate,
     NotificationChannel, SendResult)

@@ -5,7 +5,6 @@ This module provides the in-memory store; backend persistence is
 added in Plan 04 via database models.
 """
 from datetime import datetime
-from typing import Any
 
 from ccam_notification.models import (Notification, NotificationTemplate,
     NotificationStatus, SendResult, NotificationChannel)

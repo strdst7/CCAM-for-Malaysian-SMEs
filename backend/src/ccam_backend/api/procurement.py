@@ -1,13 +1,12 @@
 import asyncio
-from fastapi import APIRouter, Depends, HTTPException, Request
-from pydantic import BaseModel, Field
-from typing import Any
+from fastapi import APIRouter, Depends, Request
+from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 from ccam_backend.api.deps import get_db
 from ccam_backend.auth.middleware import verify_hmac
 from ccam_backend.models.purchase_order import PurchaseOrder as POModel
 from ccam_procurement import create_and_send_po
-from ccam_procurement.models import POLineItem, POGenerateRequest, SupplierContact, POStatus
+from ccam_procurement.models import POLineItem, POGenerateRequest, SupplierContact
 
 router = APIRouter(tags=["procurement"])
 

@@ -1,8 +1,6 @@
 import asyncio
-from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException, Request
-from pydantic import BaseModel, Field
-from typing import Any
+from pydantic import BaseModel
 from ccam_backend.auth.middleware import verify_hmac
 from ccam_backend.redis_client import arq_pool
 from ccam_forecast.data import SimulatorDataGenerator

@@ -8,11 +8,11 @@ Orchestrates:
 """
 from datetime import datetime
 from ccam_procurement.models import (
-    PurchaseOrder, POLineItem, POStatus, POGenerateRequest, SupplierContact,
+    PurchaseOrder, POStatus, POGenerateRequest, SupplierContact,
 )
 from ccam_procurement.supplier_abc import SupplierAdapter
 from ccam_procurement.email_adapter import EmailSupplierAdapter
-from ccam_procurement.exceptions import ProcurementError, SupplierNotFoundError
+from ccam_procurement.exceptions import ProcurementError
 
 
 class ProcurementEngine:

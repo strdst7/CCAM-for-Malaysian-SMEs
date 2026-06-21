@@ -1,7 +1,6 @@
 from datetime import datetime, timezone
-from fastapi import APIRouter, Depends, HTTPException, Request, Query
+from fastapi import APIRouter, Depends, Request, Query
 from pydantic import BaseModel, Field
-from typing import Any
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from ccam_backend.api.deps import get_db
@@ -71,7 +70,7 @@ async def list_notifications(request: Request, db: AsyncSession = Depends(get_db
     # Count
     count_q = select(func.count()).select_from(NotificationLog).where(NotificationLog.tenant_id == tenant_id)
     total = (await db.execute(count_q)).scalar() or 0
-    unread_q = count_q.where(NotificationLog.is_read == False)
+    unread_q = count_q.where(~NotificationLog.is_read)
     unread = (await db.execute(unread_q)).scalar() or 0
     # Fetch
     q = select(NotificationLog).where(NotificationLog.tenant_id == tenant_id).order_by(NotificationLog.created_at.desc())

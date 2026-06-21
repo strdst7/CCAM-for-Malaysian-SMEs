@@ -1,9 +1,8 @@
 import asyncio
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, Request
 from pydantic import BaseModel, Field
-from typing import Any
 from ccam_backend.auth.middleware import verify_hmac
-from ccam_menu.models import MenuItem, MenuConstraints
+from ccam_menu.models import MenuItem
 from ccam_menu.engine import MenuEngine
 
 router = APIRouter(tags=["menu"])
