@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-06-21)
 ## Current Position
 
 Phase: 4 of 5 (Microflows & Worker Jobs)
-Plan: 1 of 2 in current phase
-Status: Executing
-Last activity: 2026-06-21 — Plan 04-01 complete (DSL compiler + bytecode executor library)
+Plan: 2 of 2 in current phase
+Status: Complete
+Last activity: 2026-06-21 — Plan 04-02 complete (ARQ worker job infrastructure)
 
-Progress: [████████████░░░░░░░░] 50% (1/2 plans)
+Progress: [████████████████████] 100% (2/2 plans)
 
 ## Performance Metrics
 
@@ -30,11 +30,11 @@ Progress: [████████████░░░░░░░░] 50% (1/
 | 1 - Simulator Core | 4 | Complete | N/A |
 | 2 - Backend Foundation | 3 | Complete | N/A |
 | 3 - Simulator-Backend Integration | 2 | Complete | ~4 min |
-| 4 - Microflows & Worker Jobs | 1 | In progress | 18 min |
+| 4 - Microflows & Worker Jobs | 2 | Complete | 9 min |
 
 **Recent Trend:**
-- Last plans: 02-03 → 03-01 → 03-02 → 04-01
-- Trend: Phase 1 + Phase 2 + Phase 3 + Plan 04-01 delivered
+- Last plans: 02-03 → 03-01 → 03-02 → 04-01 → 04-02
+- Trend: Phase 1 + Phase 2 + Phase 3 + Phase 4 delivered
 
 ## Accumulated Context
 
@@ -73,6 +73,11 @@ Recent decisions affecting current work:
 - (Phase 4): Two-pass compilation: validate → resolve refs → detect cycles → linearize DAG → emit instructions with jump fixup
 - (Phase 4): Switch step emits LOAD per case (COMPARE consumes both stack values)
 - (Phase 4): Action handlers injected via dict (not imported) — standalone library
+- (Phase 4): actions={} in MicroflowContext is intentional — action registration is deployment-specific and deferred
+- (Phase 4): Worker runs independently from FastAPI (arq ccam_backend.workers.mcf_worker.WorkerSettings)
+- (Phase 4): Audit logging at enqueue time only — avoids worker coupling to audit infra
+- (Phase 4): Status transitions are server-only via SQLAlchemy; no client-accessible status update endpoint
+- (Phase 4): DLQ is same DB table (status='dlq') — no separate queue in v1
 
 ### Pending Todos
 
@@ -91,25 +96,18 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-06-21 (Plan 04-01 complete — Microflow DSL compiler + bytecode executor library)
-Stopped at: Plan 04-01 delivered — 1 of 2 plans complete in Phase 4
-Resume file: .planning/phases/04-microflows-worker-jobs/04-02-PLAN.md
+Last session: 2026-06-21 (Phase 4 complete — Microflows & Worker Jobs)
+Stopped at: Plan 04-02 delivered — 2 of 2 plans complete in Phase 4
+Resume file: .planning/phases/05-advanced-engines/
 
-### Plan 04-01 Deliverables
+### Phase 4 Deliverables
 
-| File | Purpose |
-|------|---------|
-| `mcf/pyproject.toml` | Standalone ccam-mcf package configuration |
-| `mcf/src/ccam_mcf/__init__.py` | Public API exports |
-| `mcf/src/ccam_mcf/models.py` | Microflow data models + bytecode instruction format |
-| `mcf/src/ccam_mcf/compiler.py` | YAML-to-bytecode compiler with validation |
-| `mcf/src/ccam_mcf/executor.py` | Deterministic stack-based bytecode executor |
-| `mcf/src/ccam_mcf/exceptions.py` | CompileError and ExecError |
-| `mcf/tests/test_mcf_unit.py` | 15-unit test suite (all pass) |
+| Plan | Files | Purpose |
+|------|-------|---------|
+| 04-01 | `mcf/` (7 files) | Microflow DSL compiler + bytecode executor library (MCF-01) |
+| 04-02 | `backend/` (7 created, 4 modified) | ARQ worker job infrastructure with retry/DLQ/idempotency (MCF-02) |
 
-### Bugs Fixed During Execution
+### Plans Completed
 
-1. **Executor IP increment after jumps**: `run()` loop unconditionally advanced `self._ip += 1` after every instruction, including JUMP/JUMP_IF_FALSE — caused skipped targets
-2. **Switch step not emitting case blocks**: JUMP fixups pointed to step blocks that were never emitted
-3. **Switch single LOAD consumed by COMPARE**: First case's COMPARE consumed the source value, subsequent cases had nothing to compare
-4. **Package forward imports**: `__init__.py` imported compiler/executor modules before they existed — required stub files
+- 04-01: Microflow DSL Compiler & Bytecode Executor Library — 3 tasks, 7 files
+- 04-02: ARQ Worker Job Infrastructure — 3 tasks, 7 files created, 4 files modified

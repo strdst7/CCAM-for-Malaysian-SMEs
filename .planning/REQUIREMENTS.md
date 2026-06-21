@@ -35,7 +35,7 @@
 ### Microflows & Worker Jobs (Phase 4)
 
 - [x] **MCF-01**: Microflow DSL interpreter (bytecode compiler + deterministic executor) — Plan 04-01
-- [ ] **MCF-02**: Worker job system with FIFO queues, retry logic, dead-letter queue
+- [x] **MCF-02**: Worker job system with FIFO queues, retry logic, dead-letter queue
 - [ ] **MCF-03**: Microflow safety layer (no loops, no recursion, no privilege escalation)
 - [ ] **MCF-04**: Simulator validates all microflow changes before deployment
 
@@ -93,7 +93,7 @@
 | INT-03 | Phase 3 | Complete |
 | INT-04 | Phase 3 | Pending |
 | MCF-01 | Phase 4 | Complete |
-| MCF-02 | Phase 4 | Pending |
+| MCF-02 | Phase 4 | Complete |
 | MCF-03 | Phase 4 | Pending |
 | MCF-04 | Phase 4 | Pending |
 | ENG-01 | Phase 5 | Pending |

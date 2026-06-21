@@ -78,7 +78,7 @@ Plans:
 
 Plans:
 - [x] 04-01-PLAN.md — Microflow DSL compiler + bytecode executor library (MCF-01)
-- [ ] 04-02-PLAN.md — ARQ worker job infrastructure with retry/DLQ/idempotency (MCF-02)
+- [x] 04-02-PLAN.md — ARQ worker job infrastructure with retry/DLQ/idempotency (MCF-02)
 
 ### Phase 5: Advanced Engines
 **Goal**: Production-grade ML engines for WhatsApp message parsing, menu optimization, demand forecasting, automated procurement, and multi-channel notifications.
@@ -105,5 +105,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 1. Simulator Core (CLI) | 4/4 | Complete | 2026-06-21 |
 | 2. Backend Foundation | 3/3 | Complete | 2026-06-21 |
 | 3. Simulator-Backend Integration | 2/2 | Complete | 2026-06-21 |
-| 4. Microflows & Worker Jobs | 1/2 | Executing | 2026-06-21 |
+| 4. Microflows & Worker Jobs | 2/2 | Complete | 2026-06-21 |
 | 5. Advanced Engines | 0/0 | Not started | - |
