@@ -220,6 +220,6 @@ None. The STRIDE mitigations from the plan's threat model are respected:
 ## Self-Check: PASSED
 - ✅ All 12 created files verified on disk
 - ✅ All 4 modified files verified on disk
-- ✅ All 3 commits verified in git log
+- ✅ All 4 commits verified in git log (3 feat + 1 docs)
 - ✅ No accidental file deletions in commits
 - ✅ All verification assertions pass (structural + import checks)
