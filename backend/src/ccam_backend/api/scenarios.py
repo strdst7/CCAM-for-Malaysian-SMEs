@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, Request, status
 from pydantic import BaseModel, Field
 from sqlalchemy import select, update, func
 from sqlalchemy.ext.asyncio import AsyncSession
-from datetime import datetime, timezone
+from datetime import datetime
 from typing import Optional
 
 from ccam_backend.api.deps import get_db
@@ -73,8 +73,8 @@ def _model_to_response(s: Scenario) -> ScenarioResponse:
         is_latest=s.is_latest,
         is_active=s.is_active,
         tags=s.tags,
-        created_at=s.created_at,
-        updated_at=s.updated_at,
+        created_at=s.created_at,  # type: ignore[arg-type]
+        updated_at=s.updated_at,  # type: ignore[arg-type]
     )
 
 
@@ -98,7 +98,7 @@ async def create_scenario(
         select(Scenario).where(
             Scenario.tenant_id == tenant_id,
             Scenario.name == body.name,
-            Scenario.is_active == True,
+            Scenario.is_active,
         )
     )
     if existing.scalar_one_or_none():
@@ -154,7 +154,7 @@ async def list_scenarios(
         Scenario.tenant_id == tenant_id,
     )
     if not include_inactive:
-        count_query = count_query.where(Scenario.is_active == True)
+        count_query = count_query.where(Scenario.is_active)
     total_result = await db.execute(count_query)
     total = total_result.scalar() or 0
 
@@ -167,7 +167,7 @@ async def list_scenarios(
         .limit(page_size)
     )
     if not include_inactive:
-        query = query.where(Scenario.is_active == True)
+        query = query.where(Scenario.is_active)
     result = await db.execute(query)
     scenarios = result.scalars().all()
 
@@ -179,7 +179,7 @@ async def list_scenarios(
             version_number=s.version_number,
             is_latest=s.is_latest,
             is_active=s.is_active,
-            created_at=s.created_at,
+            created_at=s.created_at,  # type: ignore[arg-type]
         )
         for s in scenarios
     ]
@@ -248,7 +248,7 @@ async def update_scenario(
         .where(
             Scenario.tenant_id == tenant_id,
             Scenario.name == current.name,
-            Scenario.is_latest == True,
+            Scenario.is_latest,
         )
         .values(is_latest=False)
     )
@@ -302,7 +302,7 @@ async def delete_scenario(
         select(Scenario).where(
             Scenario.id == scenario_id,
             Scenario.tenant_id == tenant_id,
-            Scenario.is_active == True,
+            Scenario.is_active,
         )
     )
     scenario = result.scalar_one_or_none()

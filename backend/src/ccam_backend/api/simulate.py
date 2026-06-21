@@ -1,6 +1,6 @@
 import asyncio
 import hashlib
-import json
+
 import random
 import time
 from datetime import datetime, timezone
@@ -32,8 +32,6 @@ router = APIRouter(tags=["simulate"])
 
 def _scenario_from_yaml(yaml_str: str) -> Scenario:
     """Parse YAML string into Scenario dataclass using ccam_sim loader."""
-    data = yaml.safe_load(yaml_str)
-    # Use ccam_sim's built-in loader for proper dataclass construction
     import tempfile
 
     with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:
@@ -43,13 +41,11 @@ def _scenario_from_yaml(yaml_str: str) -> Scenario:
         return load_scenario(tmp_path)
     finally:
         import os
-
         os.unlink(tmp_path)
 
 
 def _scenario_from_structured(body: SimulateRequestBody) -> Scenario:
     """Build Scenario dataclass from structured JSON fields."""
-    import dataclasses
     from ccam_sim.models.scenario import (
         SimulationConfig,
         DemandBlock,
@@ -58,7 +54,7 @@ def _scenario_from_structured(body: SimulateRequestBody) -> Scenario:
         Scenario as ScenarioDC,
     )
 
-    sim_cfg = body.simulation
+    sim_cfg = body.simulation or {}
     demand_blocks = [
         DemandBlock(
             start_hour=float(b["start_hour"]),
@@ -170,7 +166,7 @@ async def run_simulation_endpoint(
                 select(ScenarioModel).where(
                     ScenarioModel.id == body.scenario_id,
                     ScenarioModel.tenant_id == tenant_id,
-                    ScenarioModel.is_active == True,
+                    ScenarioModel.is_active,
                 )
             )
             scenario_record = result.scalar_one_or_none()
@@ -182,14 +178,15 @@ async def run_simulation_endpoint(
                 select(ScenarioModel).where(
                     ScenarioModel.tenant_id == tenant_id,
                     ScenarioModel.name == body.scenario_name,
-                    ScenarioModel.is_latest == True,
-                    ScenarioModel.is_active == True,
+                    ScenarioModel.is_latest,
+                    ScenarioModel.is_active,
                 )
             )
             scenario_record = result.scalar_one_or_none()
             if scenario_record is None:
                 raise HTTPException(status_code=404, detail=f"Scenario '{body.scenario_name}' not found")
 
+        assert scenario_record is not None  # narrowed by raise above
         scenario_yaml = scenario_record.yaml
         scenario = _scenario_from_yaml(scenario_record.yaml)
     else:
@@ -209,7 +206,7 @@ async def run_simulation_endpoint(
         input_hash=input_hash,
         status="running",
         seed=seed,
-        started_at=datetime.now(timezone.utc),
+        started_at=datetime.now(timezone.utc),  # type: ignore[arg-type]
         triggered_by=signed_key[:16] if signed_key else "api",
     )
     db.add(run_record)
@@ -236,7 +233,7 @@ async def run_simulation_endpoint(
         kpi_dict = dataclasses.asdict(state.kpis)
         run_record.kpi_result_json = kpi_dict
         run_record.status = "completed"
-        run_record.completed_at = datetime.now(timezone.utc)
+        run_record.completed_at = datetime.now(timezone.utc)  # type: ignore[assignment]
 
         await logger.log(
             tenant_id=tenant_id,
@@ -277,7 +274,7 @@ async def run_simulation_endpoint(
         duration_ms = (time.perf_counter() - start_time) * 1000
         run_record.status = "failed"
         run_record.error_message = str(e)
-        run_record.completed_at = datetime.now(timezone.utc)
+        run_record.completed_at = datetime.now(timezone.utc)  # type: ignore[assignment]
 
         await logger.log(
             tenant_id=tenant_id,
@@ -300,7 +297,7 @@ async def run_simulation_endpoint(
         duration_ms = (time.perf_counter() - start_time) * 1000
         run_record.status = "failed"
         run_record.error_message = str(e)
-        run_record.completed_at = datetime.now(timezone.utc)
+        run_record.completed_at = datetime.now(timezone.utc)  # type: ignore[assignment]
 
         await logger.log(
             tenant_id=tenant_id,
@@ -356,6 +353,6 @@ async def get_simulation_run(
         scenario_yaml=run_record.scenario_yaml,
         kpis=kpis,
         error_message=run_record.error_message,
-        started_at=run_record.started_at,
-        completed_at=run_record.completed_at,
+        started_at=run_record.started_at,  # type: ignore[arg-type]
+        completed_at=run_record.completed_at,  # type: ignore[arg-type]
     )
