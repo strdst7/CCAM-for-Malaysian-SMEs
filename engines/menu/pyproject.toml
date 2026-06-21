@@ -1,0 +1,21 @@
+[project]
+name = "ccam-menu"
+version = "0.1.0"
+description = "CCAM menu engineering engine — OR-Tools MILP solver for menu optimization with safety constraints"
+requires-python = ">=3.14"
+dependencies = [
+    "ortools>=9.11.0",
+    "numpy>=2.0.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
