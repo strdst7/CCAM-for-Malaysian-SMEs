@@ -54,15 +54,16 @@ Plans:
 **Depends on**: Phase 1, Phase 2
 **Requirements**: INT-01, INT-02, INT-03, INT-04
 **Success Criteria** (what must be TRUE):
-  1. User/developer can call `POST /simulate` with scenario parameters and receive KPI results identical to the CLI
-  2. User/developer can create, read, list, update, and delete scenario YAMLs via REST API
-  3. Every simulation run is persisted with its full KPI snapshot and input parameters for audit/history
-  4. Safety gate blocks menu, procurement, and microflow changes when simulator KPIs fail configured thresholds, returning a clear reason for the block
-  5. The safety gate cannot be bypassed by any API caller — it enforces hard rules at the integration layer
-**Plans**: TBD
+   1. User/developer can call `POST /simulate` with scenario parameters and receive KPI results identical to the CLI
+   2. User/developer can create, read, list, update, and delete scenario YAMLs via REST API
+   3. Every simulation run is persisted with its full KPI snapshot and input parameters for audit/history
+   4. Safety gate blocks menu, procurement, and microflow changes when simulator KPIs fail configured thresholds, returning a clear reason for the block
+   5. The safety gate cannot be bypassed by any API caller — it enforces hard rules at the integration layer
+**Plans**: 2 plans across 2 waves
 
 Plans:
-- (To be defined during plan-phase 3)
+- [ ] 03-01-PLAN.md — Simulation endpoint foundation: Scenario model, migration, Pydantic schemas, POST/GET simulate endpoints
+- [ ] 03-02-PLAN.md — Scenario CRUD, tenant provisioning API, saved-scenario refs, integration tests
 
 ### Phase 4: Microflows & Worker Jobs
 **Goal**: A deterministic microflow DSL system with a bytecode interpreter, worker job queues with retry/dead-letter handling, all validated by the simulator before deployment.
@@ -103,6 +104,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Simulator Core (CLI) | 4/4 | Complete | 2026-06-21 |
 | 2. Backend Foundation | 3/3 | Complete | 2026-06-21 |
-| 3. Simulator-Backend Integration | 0/0 | Not started | - |
+| 3. Simulator-Backend Integration | 0/2 | Not started | - |
 | 4. Microflows & Worker Jobs | 0/0 | Not started | - |
 | 5. Advanced Engines | 0/0 | Not started | - |
