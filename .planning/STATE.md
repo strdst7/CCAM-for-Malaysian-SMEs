@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-06-21)
 
 **Core value:** Nothing touches a real restaurant until the simulator proves it's safe.
-**Current focus:** Phase 3 — Simulator-Backend Integration
+**Current focus:** Phase 4 — Microflows & Worker Jobs
 
 ## Current Position
 
-Phase: 3 of 5 (Simulator-Backend Integration)
-Plan: 2 of 2 in current phase
-Status: Complete
-Last activity: 2026-06-21 — Plan 03-02 complete (Scenario CRUD, tenant provisioning API, saved-scenario refs, integration tests)
+Phase: 4 of 5 (Microflows & Worker Jobs)
+Plan: 0 of 2 in current phase (plans created, not yet executed)
+Status: Planned
+Last activity: 2026-06-21 — Phase 4 plans created (DSL compiler + worker infrastructure)
 
 Progress: [██████████] 100% (complete)
 

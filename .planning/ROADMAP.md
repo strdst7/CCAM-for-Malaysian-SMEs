@@ -68,17 +68,17 @@ Plans:
 ### Phase 4: Microflows & Worker Jobs
 **Goal**: A deterministic microflow DSL system with a bytecode interpreter, worker job queues with retry/dead-letter handling, all validated by the simulator before deployment.
 **Depends on**: Phase 3
-**Requirements**: MCF-01, MCF-02, MCF-03, MCF-04
+**Requirements**: MCF-01, MCF-02, MCF-03 (deferred), MCF-04 (deferred)
 **Success Criteria** (what must be TRUE):
   1. User can write microflow DSL scripts that compile to bytecode and execute deterministically (same input → same output)
   2. Worker jobs process FIFO queues with configurable retry logic; failed jobs land in a dead-letter queue for inspection
-  3. Microflow safety layer prevents infinite loops, recursion, and privilege escalation at compile time
-  4. All microflow changes must pass simulator validation before deployment — safety gate integration is enforced
-  5. Worker jobs are idempotent — replaying a completed job does not produce duplicate side effects
-**Plans**: TBD
+  3. Worker jobs are idempotent — replaying a completed job does not produce duplicate side effects
+  > MCF-03 (safety layer) and MCF-04 (simulator gate) deferred to a future phase per design decision D-01.
+**Plans**: 2 plans across 2 waves
 
 Plans:
-- (To be defined during plan-phase 4)
+- [ ] 04-01-PLAN.md — Microflow DSL compiler + bytecode executor library (MCF-01)
+- [ ] 04-02-PLAN.md — ARQ worker job infrastructure with retry/DLQ/idempotency (MCF-02)
 
 ### Phase 5: Advanced Engines
 **Goal**: Production-grade ML engines for WhatsApp message parsing, menu optimization, demand forecasting, automated procurement, and multi-channel notifications.
@@ -104,6 +104,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Simulator Core (CLI) | 4/4 | Complete | 2026-06-21 |
 | 2. Backend Foundation | 3/3 | Complete | 2026-06-21 |
-| 3. Simulator-Backend Integration | 1/2 | In Progress | - |
-| 4. Microflows & Worker Jobs | 0/0 | Not started | - |
+| 3. Simulator-Backend Integration | 2/2 | Complete | 2026-06-21 |
+| 4. Microflows & Worker Jobs | 0/2 | Not started | - |
 | 5. Advanced Engines | 0/0 | Not started | - |
