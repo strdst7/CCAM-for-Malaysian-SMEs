@@ -19,6 +19,7 @@ from ccam_forecast.exceptions import (
     DataError,
     EnsembleError,
 )
+from ccam_forecast.worker import train_forecast_models
 
 __all__ = [
     "ForecastEnsemble",
@@ -36,4 +37,5 @@ __all__ = [
     "TrainingError",
     "DataError",
     "EnsembleError",
+    "train_forecast_models",
 ]
