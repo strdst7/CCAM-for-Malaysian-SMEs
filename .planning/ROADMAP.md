@@ -62,7 +62,7 @@ Plans:
 **Plans**: 2 plans across 2 waves
 
 Plans:
-- [ ] 03-01-PLAN.md — Simulation endpoint foundation: Scenario model, migration, Pydantic schemas, POST/GET simulate endpoints
+- [x] 03-01-PLAN.md — Simulation endpoint foundation: Scenario model, migration, Pydantic schemas, POST/GET simulate endpoints
 - [ ] 03-02-PLAN.md — Scenario CRUD, tenant provisioning API, saved-scenario refs, integration tests
 
 ### Phase 4: Microflows & Worker Jobs
@@ -104,6 +104,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Simulator Core (CLI) | 4/4 | Complete | 2026-06-21 |
 | 2. Backend Foundation | 3/3 | Complete | 2026-06-21 |
-| 3. Simulator-Backend Integration | 0/2 | Not started | - |
+| 3. Simulator-Backend Integration | 1/2 | In Progress | - |
 | 4. Microflows & Worker Jobs | 0/0 | Not started | - |
 | 5. Advanced Engines | 0/0 | Not started | - |

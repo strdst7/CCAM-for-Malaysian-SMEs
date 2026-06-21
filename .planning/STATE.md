@@ -10,16 +10,16 @@ See: .planning/PROJECT.md (updated 2026-06-21)
 ## Current Position
 
 Phase: 3 of 5 (Simulator-Backend Integration)
-Plan: 0 of 2 in current phase
-Status: Planned
-Last activity: 2026-06-21 — Phase 2 complete (3 plans, 8 models, CLI, Docker, Helm, CI)
+Plan: 1 of 2 in current phase
+Status: In Progress
+Last activity: 2026-06-21 — Plan 03-01 complete (Scenario model, schemas, simulation endpoints)
 
-Progress: [██████░░░░] 60% (complete)
+Progress: [████████░░] 75% (complete)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
+- Total plans completed: 8
 - Plans planned: 2 (Phase 3)
 - Total execution time: N/A
 
@@ -29,10 +29,11 @@ Progress: [██████░░░░] 60% (complete)
 |-------|-------|-------|----------|
 | 1 - Simulator Core | 4 | Complete | N/A |
 | 2 - Backend Foundation | 3 | Complete | N/A |
+| 3 - Simulator-Backend Integration | 1 | In Progress | ~3 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-04 → 02-01 → 02-02 → 02-03 consecutive completion
-- Trend: Phase 1 + Phase 2 delivered, Phase 3 planned
+- Last 5 plans: 02-03 → 03-01 consecutive completion
+- Trend: Phase 1 + Phase 2 delivered, Phase 3 underway (1/2 plans complete)
 
 ## Accumulated Context
 
@@ -60,6 +61,13 @@ Recent decisions affecting current work:
 - (Phase 2): Multi-stage Dockerfile, Helm chart (6 templates), GitHub Actions CI
 - (Phase 2): Ruff + mypy lint/typecheck enforced in CI
 - (Phase 2): API key format `v1:base64(32 bytes)`, bcrypt hashed, versioned rotation
+- (Phase 3): Scenario has its own versioned DB table (scenarios) with version_number and is_latest
+- (Phase 3): POST /simulate accepts inline YAML, structured JSON, or saved scenario ref
+- (Phase 3): POST /simulate runs synchronous simulator via loop.run_in_executor (thread pool)
+- (Phase 3): SafetyError from simulator returns HTTP 400 with detail message
+- (Phase 3): seed is optional; server auto-generates if omitted and returns it in response
+- (Phase 3): GET /simulate/{run_id} tenant-scoped retrieval with KPI snapshot
+- (Phase 3): All simulation actions audit-logged (completed/rejected/failed)
 
 ### Pending Todos
 
@@ -78,28 +86,20 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-06-21 (Phase 2 complete)
-Stopped at: Phase 2 delivered — 3 plans, 8 unit tests passing, 5 skipped (DB-dependent)
-Resume file: .planning/phases/03-simulator-integration/
+Last session: 2026-06-21 (Plan 03-01 complete — simulation endpoint foundation)
+Stopped at: Plan 03-01 delivered — Scenario model, migration 002, Pydantic schemas, POST/GET simulate endpoints
+Resume file: .planning/phases/03-simulator-backend-integration/
 
-### Plan 02-03 Deliverables
+### Plan 03-01 Deliverables
 
 | File | Purpose |
 |------|---------|
-| `backend/src/ccam_backend/cli/__init__.py` | CLI package init |
-| `backend/src/ccam_backend/cli/tenant.py` | `ccam-backend provision-tenant` Click command |
-| `backend/Dockerfile` | Multi-stage Docker build (uv → slim runtime) |
-| `backend/.dockerignore` | Docker build context exclusions |
-| `backend/helm/ccam-backend/Chart.yaml` | Helm chart metadata |
-| `backend/helm/ccam-backend/values.yaml` | Helm configuration values |
-| `backend/helm/ccam-backend/templates/_helpers.tpl` | Helm named templates |
-| `backend/helm/ccam-backend/templates/configmap.yaml` | ConfigMap (env vars) |
-| `backend/helm/ccam-backend/templates/secret.yaml` | Secret (HMAC key) |
-| `backend/helm/ccam-backend/templates/deployment.yaml` | K8s Deployment |
-| `backend/helm/ccam-backend/templates/service.yaml` | K8s Service |
-| `backend/helm/ccam-backend/templates/migration-job.yaml` | Alembic migration Job |
-| `.github/workflows/backend.yml` | CI pipeline (lint, test, docker) |
-| `backend/tests/test_cli.py` | CLI unit tests |
+| `backend/src/ccam_backend/models/scenario.py` | Scenario SQLAlchemy model with versioned fields |
+| `backend/src/ccam_backend/schemas/simulation.py` | Pydantic request/response schemas |
+| `backend/src/ccam_backend/schemas/__init__.py` | Schemas package init |
+| `backend/src/ccam_backend/api/simulate.py` | POST /simulate + GET /simulate/{run_id} endpoints |
+| `backend/alembic/versions/002_create_scenarios.py` | Migration for scenarios table |
+| `backend/uv.lock` | uv lockfile (reproducible deps with ccam-sim) |
 
 ### Bugs Fixed During Execution
 
