@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-06-21)
 ## Current Position
 
 Phase: 3 of 5 (Simulator-Backend Integration)
-Plan: 1 of 2 in current phase
-Status: In Progress
-Last activity: 2026-06-21 — Plan 03-01 complete (Scenario model, schemas, simulation endpoints)
+Plan: 2 of 2 in current phase
+Status: Complete
+Last activity: 2026-06-21 — Plan 03-02 complete (Scenario CRUD, tenant provisioning API, saved-scenario refs, integration tests)
 
-Progress: [████████░░] 75% (complete)
+Progress: [██████████] 100% (complete)
 
 ## Performance Metrics
 
@@ -29,11 +29,11 @@ Progress: [████████░░] 75% (complete)
 |-------|-------|-------|----------|
 | 1 - Simulator Core | 4 | Complete | N/A |
 | 2 - Backend Foundation | 3 | Complete | N/A |
-| 3 - Simulator-Backend Integration | 1 | In Progress | ~3 min |
+| 3 - Simulator-Backend Integration | 2 | Complete | ~4 min |
 
 **Recent Trend:**
-- Last 5 plans: 02-03 → 03-01 consecutive completion
-- Trend: Phase 1 + Phase 2 delivered, Phase 3 underway (1/2 plans complete)
+- Last 5 plans: 02-03 → 03-01 → 03-02 consecutive completion
+- Trend: Phase 1 + Phase 2 + Phase 3 delivered (all plans complete)
 
 ## Accumulated Context
 
@@ -86,20 +86,25 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-06-21 (Plan 03-01 complete — simulation endpoint foundation)
-Stopped at: Plan 03-01 delivered — Scenario model, migration 002, Pydantic schemas, POST/GET simulate endpoints
-Resume file: .planning/phases/03-simulator-backend-integration/
+Last session: 2026-06-21 (Plan 03-02 complete — Scenario CRUD, tenant provisioning API, saved-scenario refs, integration tests)
+Stopped at: Plan 03-02 delivered — Phase 3 complete (all plans executed)
+Resume file: .planning/phases/04-microflows-worker-jobs/
 
-### Plan 03-01 Deliverables
+### Plan 03-02 Deliverables
 
 | File | Purpose |
 |------|---------|
-| `backend/src/ccam_backend/models/scenario.py` | Scenario SQLAlchemy model with versioned fields |
-| `backend/src/ccam_backend/schemas/simulation.py` | Pydantic request/response schemas |
-| `backend/src/ccam_backend/schemas/__init__.py` | Schemas package init |
-| `backend/src/ccam_backend/api/simulate.py` | POST /simulate + GET /simulate/{run_id} endpoints |
-| `backend/alembic/versions/002_create_scenarios.py` | Migration for scenarios table |
-| `backend/uv.lock` | uv lockfile (reproducible deps with ccam-sim) |
+| `backend/src/ccam_backend/api/scenarios.py` | Full RESTful scenario CRUD router (5 endpoints) |
+| `backend/src/ccam_backend/api/tenants.py` | REST tenant provisioning with SETUP_TOKEN auth |
+| `backend/tests/test_integration_phase3.py` | Integration test scaffold (8 stubs) |
+
+### Modified
+| File | Change |
+|------|--------|
+| `backend/src/ccam_backend/api/simulate.py` | Saved scenario reference resolution added |
+| `backend/src/ccam_backend/auth/middleware.py` | `/api/v1/tenants` added to PUBLIC_PATHS |
+| `backend/src/ccam_backend/main.py` | scenarios_router and tenants_router wired |
+| `backend/src/ccam_backend/config.py` | setup_token field added |
 
 ### Bugs Fixed During Execution
 

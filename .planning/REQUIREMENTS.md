@@ -28,7 +28,7 @@
 ### Simulator-Backend Integration (Phase 3)
 
 - [x] **INT-01**: `POST /simulate` API endpoint wrapping the simulator engine
-- [ ] **INT-02**: Scenario CRUD — save, load, list scenario YAMLs
+- [x] **INT-02**: Scenario CRUD — save, load, list scenario YAMLs
 - [x] **INT-03**: Simulation run storage with KPI snapshots
 - [ ] **INT-04**: Safety gate — blocks menu/procurement/microflow changes if simulator KPIs fail thresholds
 
@@ -89,7 +89,7 @@
 | BCK-04 | Phase 2 | Pending |
 | BCK-05 | Phase 2 | Pending |
 | INT-01 | Phase 3 | Complete |
-| INT-02 | Phase 3 | Pending |
+| INT-02 | Phase 3 | Complete |
 | INT-03 | Phase 3 | Complete |
 | INT-04 | Phase 3 | Pending |
 | MCF-01 | Phase 4 | Pending |

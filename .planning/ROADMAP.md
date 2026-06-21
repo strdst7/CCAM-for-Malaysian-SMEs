@@ -63,7 +63,7 @@ Plans:
 
 Plans:
 - [x] 03-01-PLAN.md — Simulation endpoint foundation: Scenario model, migration, Pydantic schemas, POST/GET simulate endpoints
-- [ ] 03-02-PLAN.md — Scenario CRUD, tenant provisioning API, saved-scenario refs, integration tests
+- [x] 03-02-PLAN.md — Scenario CRUD, tenant provisioning API, saved-scenario refs, integration tests
 
 ### Phase 4: Microflows & Worker Jobs
 **Goal**: A deterministic microflow DSL system with a bytecode interpreter, worker job queues with retry/dead-letter handling, all validated by the simulator before deployment.
