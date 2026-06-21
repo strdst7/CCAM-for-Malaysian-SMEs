@@ -10,17 +10,17 @@ See: .planning/PROJECT.md (updated 2026-06-21)
 ## Current Position
 
 Phase: 4 of 5 (Microflows & Worker Jobs)
-Plan: 0 of 2 in current phase (plans created, not yet executed)
-Status: Planned
-Last activity: 2026-06-21 — Phase 4 plans created (DSL compiler + worker infrastructure)
+Plan: 1 of 2 in current phase
+Status: Executing
+Last activity: 2026-06-21 — Plan 04-01 complete (DSL compiler + bytecode executor library)
 
-Progress: [██████████] 100% (complete)
+Progress: [████████████░░░░░░░░] 50% (1/2 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 8
-- Plans planned: 2 (Phase 3)
+- Total plans completed: 9
+- Plans planned: 2 (Phase 4)
 - Total execution time: N/A
 
 **By Phase:**
@@ -30,10 +30,11 @@ Progress: [██████████] 100% (complete)
 | 1 - Simulator Core | 4 | Complete | N/A |
 | 2 - Backend Foundation | 3 | Complete | N/A |
 | 3 - Simulator-Backend Integration | 2 | Complete | ~4 min |
+| 4 - Microflows & Worker Jobs | 1 | In progress | 18 min |
 
 **Recent Trend:**
-- Last 5 plans: 02-03 → 03-01 → 03-02 consecutive completion
-- Trend: Phase 1 + Phase 2 + Phase 3 delivered (all plans complete)
+- Last plans: 02-03 → 03-01 → 03-02 → 04-01
+- Trend: Phase 1 + Phase 2 + Phase 3 + Plan 04-01 delivered
 
 ## Accumulated Context
 
@@ -68,6 +69,10 @@ Recent decisions affecting current work:
 - (Phase 3): seed is optional; server auto-generates if omitted and returns it in response
 - (Phase 3): GET /simulate/{run_id} tenant-scoped retrieval with KPI snapshot
 - (Phase 3): All simulation actions audit-logged (completed/rejected/failed)
+- (Phase 4): Stack-based VM for microflow DSL — 7 opcodes (LOAD/LOAD_CONST/COMPARE/JUMP_IF_FALSE/JUMP/CALL/RETURN)
+- (Phase 4): Two-pass compilation: validate → resolve refs → detect cycles → linearize DAG → emit instructions with jump fixup
+- (Phase 4): Switch step emits LOAD per case (COMPARE consumes both stack values)
+- (Phase 4): Action handlers injected via dict (not imported) — standalone library
 
 ### Pending Todos
 
@@ -86,30 +91,25 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-06-21 (Plan 03-02 complete — Scenario CRUD, tenant provisioning API, saved-scenario refs, integration tests)
-Stopped at: Plan 03-02 delivered — Phase 3 complete (all plans executed)
-Resume file: .planning/phases/04-microflows-worker-jobs/
+Last session: 2026-06-21 (Plan 04-01 complete — Microflow DSL compiler + bytecode executor library)
+Stopped at: Plan 04-01 delivered — 1 of 2 plans complete in Phase 4
+Resume file: .planning/phases/04-microflows-worker-jobs/04-02-PLAN.md
 
-### Plan 03-02 Deliverables
+### Plan 04-01 Deliverables
 
 | File | Purpose |
 |------|---------|
-| `backend/src/ccam_backend/api/scenarios.py` | Full RESTful scenario CRUD router (5 endpoints) |
-| `backend/src/ccam_backend/api/tenants.py` | REST tenant provisioning with SETUP_TOKEN auth |
-| `backend/tests/test_integration_phase3.py` | Integration test scaffold (8 stubs) |
-
-### Modified
-| File | Change |
-|------|--------|
-| `backend/src/ccam_backend/api/simulate.py` | Saved scenario reference resolution added |
-| `backend/src/ccam_backend/auth/middleware.py` | `/api/v1/tenants` added to PUBLIC_PATHS |
-| `backend/src/ccam_backend/main.py` | scenarios_router and tenants_router wired |
-| `backend/src/ccam_backend/config.py` | setup_token field added |
+| `mcf/pyproject.toml` | Standalone ccam-mcf package configuration |
+| `mcf/src/ccam_mcf/__init__.py` | Public API exports |
+| `mcf/src/ccam_mcf/models.py` | Microflow data models + bytecode instruction format |
+| `mcf/src/ccam_mcf/compiler.py` | YAML-to-bytecode compiler with validation |
+| `mcf/src/ccam_mcf/executor.py` | Deterministic stack-based bytecode executor |
+| `mcf/src/ccam_mcf/exceptions.py` | CompileError and ExecError |
+| `mcf/tests/test_mcf_unit.py` | 15-unit test suite (all pass) |
 
 ### Bugs Fixed During Execution
 
-1. **HMAC verify_signature**: Both `main.py` and `middleware.py` were calling `verify_signature` without the `signature_b64` argument (5 args instead of 6)
-2. **Redis close**: `close()` deprecated; changed to `aclose()` for both Redis client and ARQ pool
-3. **Lint auto-fixes**: 7 F401 unused imports removed + `== True` → truth check in `api_keys.py`
-4. **Mypy type errors**: 5 errors fixed — async generator return types, `RedisSettings.from_url` (didn't exist), `wait_closed` (didn't exist)
-5. **Test infrastructure**: httpx ASGITransport doesn't trigger lifespan; added manual `lifespan_context` fixture
+1. **Executor IP increment after jumps**: `run()` loop unconditionally advanced `self._ip += 1` after every instruction, including JUMP/JUMP_IF_FALSE — caused skipped targets
+2. **Switch step not emitting case blocks**: JUMP fixups pointed to step blocks that were never emitted
+3. **Switch single LOAD consumed by COMPARE**: First case's COMPARE consumed the source value, subsequent cases had nothing to compare
+4. **Package forward imports**: `__init__.py` imported compiler/executor modules before they existed — required stub files
