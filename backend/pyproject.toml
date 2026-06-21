@@ -18,6 +18,7 @@ dependencies = [
     "httpx>=0.28.0",
     "bcrypt>=4.2.0",
     "python-dotenv>=1.0.0",
+    "ccam-sim",
 ]
 
 [build-system]
@@ -39,6 +40,9 @@ dev = [
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
+
+[tool.uv.sources]
+ccam-sim = { path = "../", editable = true }
 
 [project.scripts]
 ccam-backend = "ccam_backend.cli:cli"
