@@ -14,6 +14,7 @@ from ccam_backend.api.deps import get_db
 from ccam_backend.audit.logger import AuditLogger
 from ccam_backend.auth.middleware import verify_hmac
 from ccam_backend.models.simulation_run import SimulationRun
+from ccam_backend.models.scenario import Scenario as ScenarioModel
 from ccam_backend.schemas.simulation import (
     ErrorResponse,
     KPIResultResponse,
@@ -141,6 +142,7 @@ async def run_simulation_endpoint(
     # Step 1: Resolve scenario input
     scenario: Scenario = None
     scenario_yaml: str = ""
+    scenario_record: ScenarioModel | None = None
 
     if body.scenario_yaml:
         # D-09: Inline YAML string
@@ -162,13 +164,34 @@ async def run_simulation_endpoint(
             default_flow_style=False,
         )
     elif body.scenario_id or body.scenario_name:
-        # D-02c, D-03: Saved scenario reference — loads full Scenario from DB
-        # Note: full scenario resolution from saved scenarios depends on CRUD endpoints
-        # from a subsequent plan. This branch handles the partial case.
-        raise HTTPException(
-            status_code=501,
-            detail="Saved scenario reference not yet implemented — use inline YAML or structured JSON",
-        )
+        # D-02c, D-03: Saved scenario reference
+        if body.scenario_id:
+            result = await db.execute(
+                select(ScenarioModel).where(
+                    ScenarioModel.id == body.scenario_id,
+                    ScenarioModel.tenant_id == tenant_id,
+                    ScenarioModel.is_active == True,
+                )
+            )
+            scenario_record = result.scalar_one_or_none()
+            if scenario_record is None:
+                raise HTTPException(status_code=404, detail="Scenario not found")
+        elif body.scenario_name:
+            # D-03: Resolve name to latest active version
+            result = await db.execute(
+                select(ScenarioModel).where(
+                    ScenarioModel.tenant_id == tenant_id,
+                    ScenarioModel.name == body.scenario_name,
+                    ScenarioModel.is_latest == True,
+                    ScenarioModel.is_active == True,
+                )
+            )
+            scenario_record = result.scalar_one_or_none()
+            if scenario_record is None:
+                raise HTTPException(status_code=404, detail=f"Scenario '{body.scenario_name}' not found")
+
+        scenario_yaml = scenario_record.yaml
+        scenario = _scenario_from_yaml(scenario_record.yaml)
     else:
         raise HTTPException(
             status_code=422,
@@ -231,11 +254,21 @@ async def run_simulation_endpoint(
 
         await db.commit()
 
+        # Build scenario_info for saved scenario references
+        scenario_info = None
+        if scenario_record is not None:
+            scenario_info = {
+                "scenario_id": scenario_record.id,
+                "scenario_name": scenario_record.name,
+                "version": scenario_record.version_number,
+            }
+
         return SimulateResponse(
             run_id=run_id,
             status="completed",
             seed=seed,
             duration_ms=round(duration_ms, 2),
+            scenario_info=scenario_info,
             kpis=kpi_response,
         )
 
