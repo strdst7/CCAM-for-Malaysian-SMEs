@@ -9,6 +9,9 @@ from .scenario import Scenario
 from .audit_log import AuditLog
 from .api_key import ApiKey
 from .worker_job import WorkerJob
+from .purchase_order import PurchaseOrder
+from .notification_log import NotificationLog
+from .forecast_config import ForecastConfig
 
 __all__ = [
     "Base",
@@ -22,4 +25,7 @@ __all__ = [
     "AuditLog",
     "ApiKey",
     "WorkerJob",
+    "PurchaseOrder",
+    "NotificationLog",
+    "ForecastConfig",
 ]

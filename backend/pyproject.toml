@@ -20,6 +20,11 @@ dependencies = [
     "python-dotenv>=1.0.0",
     "ccam-sim",
     "ccam-mcf",
+    "ccam-parser",
+    "ccam-menu",
+    "ccam-forecast",
+    "ccam-procurement",
+    "ccam-notification",
 ]
 
 [build-system]
@@ -45,6 +50,11 @@ testpaths = ["tests"]
 [tool.uv.sources]
 ccam-sim = { path = "../", editable = true }
 ccam-mcf = { path = "../mcf", editable = true }
+ccam-parser = { path = "../engines/parser", editable = true }
+ccam-menu = { path = "../engines/menu", editable = true }
+ccam-forecast = { path = "../engines/forecast", editable = true }
+ccam-procurement = { path = "../engines/procurement", editable = true }
+ccam-notification = { path = "../engines/notification", editable = true }
 
 [project.scripts]
 ccam-backend = "ccam_backend.cli:cli"
