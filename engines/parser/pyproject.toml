@@ -1,0 +1,22 @@
+[project]
+name = "ccam-parser"
+version = "0.1.0"
+description = "CCAM parser engine — regex-first + DistilBERT NER for Malaysian F&B WhatsApp parsing"
+requires-python = ">=3.14"
+dependencies = [
+    "pyyaml>=6.0.3",
+    "onnxruntime>=1.19.0",
+    "numpy>=2.0.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
