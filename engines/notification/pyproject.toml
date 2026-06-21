@@ -1,0 +1,13 @@
+[project]
+name = "ccam-notification"
+version = "0.1.0"
+description = "CCAM notification engine — multi-channel notification routing"
+requires-python = ">=3.14"
+dependencies = [
+    "sendgrid>=6.11.0",
+]
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+[dependency-groups]
+dev = ["pytest>=9.1.1"]
