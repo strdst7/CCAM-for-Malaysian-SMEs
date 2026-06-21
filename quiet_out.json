@@ -1,0 +1,25 @@
+{
+  "simulation": {
+    "scenario_file": null,
+    "seed": 42,
+    "total_steps": 480,
+    "simulated_hours": 8.0,
+    "completed_orders": 182,
+    "total_revenue": 0.0
+  },
+  "kpis": {
+    "stockout_frequency": 97.875,
+    "waste_rate": 0.9572,
+    "bottleneck_frequency": 11.875,
+    "order_completion_time_minutes": 2.41,
+    "throughput_orders_per_hour": 22.75
+  },
+  "events_summary": {
+    "total_orders_placed": 184,
+    "total_orders_completed": 182,
+    "total_stockouts": 783,
+    "total_waste_events": 783,
+    "total_bottleneck_minutes": 95.0,
+    "total_revenue": 0.0
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "entities": {
+    "Order": {
+      "title": "Order",
+      "description": "Customer order extracted from WhatsApp",
+      "type": "object",
+      "properties": {
+        "tenant_id": { "type": "string" },
+        "customer_name": { "type": "string" },
+        "customer_phone": { "type": "string" },
+        "items": { "type": "array" },
+        "items_json": { "type": "object" },
+        "total_estimate": { "type": "number" },
+        "delivery_address": { "type": "string" },
+        "pickup_time": { "type": "string", "format": "date-time" },
+        "payment_method": { "type": "string" },
+        "payment_status": { "type": "string" },
+        "status": { "type": "string" },
+        "confidence": { "type": "number" },
+        "raw_message": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Simulation": {
+      "title": "Simulation",
+      "description": "Digital twin simulation result",
+      "type": "object",
+      "properties": {
+        "config": { "type": "object" },
+        "results": { "type": "object" },
+        "created_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Invoice": {
+      "title": "Invoice",
+      "description": "Invoice for customer order",
+      "type": "object",
+      "properties": {
+        "order_id": { "type": "string" },
+        "customer_name": { "type": "string" },
+        "amount": { "type": "number" },
+        "payment_link": { "type": "string" },
+        "status": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "due_date": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Flow": {
+      "title": "Flow",
+      "description": "Workflow definition in YAML",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "definition": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "ParserAudit": {
+      "title": "ParserAudit",
+      "description": "Audit log for Gemini extraction",
+      "type": "object",
+      "properties": {
+        "message_id": { "type": "string" },
+        "order_id": { "type": "string" },
+        "raw_text": { "type": "string" },
+        "parsed_json": { "type": "object" },
+        "confidence": { "type": "number" },
+        "corrected_by": { "type": "string" },
+        "correction_timestamp": { "type": "string", "format": "date-time" },
+        "created_at": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "firestore": {
+    "orders": {
+      "schema": "Order",
+      "description": "Collection of customer orders"
+    },
+    "simulations": {
+      "schema": "Simulation",
+      "description": "History of simulation runs"
+    },
+    "invoices": {
+      "schema": "Invoice",
+      "description": "Generated invoices"
+    },
+    "flows": {
+      "schema": "Flow",
+      "description": "Active workflows"
+    },
+    "parser_audits": {
+      "schema": "ParserAudit",
+      "description": "Audit trails for AI parser"
+    }
+  }
+}
