@@ -1,0 +1,6 @@
+apiVersion: v2
+name: ccam-backend
+description: CCAM tenant-isolated backend (FastAPI + PostgreSQL + Redis)
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

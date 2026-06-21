@@ -1,6 +1,6 @@
 from sqlalchemy import String, Boolean
 from sqlalchemy.orm import Mapped, mapped_column
-from ccam_backend.models.base import Base, ULIDMixin, TimestampMixin, generate_ulid
+from ccam_backend.models.base import Base, ULIDMixin, TimestampMixin
 
 
 class Tenant(Base, ULIDMixin, TimestampMixin):

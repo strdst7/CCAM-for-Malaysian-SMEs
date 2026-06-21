@@ -1,0 +1,46 @@
+replicaCount: 1
+
+image:
+  repository: ccam/backend
+  tag: latest
+  pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 8000
+
+env:
+  ENVIRONMENT: production
+  LOG_LEVEL: INFO
+
+postgres:
+  host: "ccam-postgres"
+  port: 5432
+  database: "ccam"
+  user: "ccam"
+  existingSecret: "ccam-postgres-secret"
+  secretKey: "password"
+
+redis:
+  host: "ccam-redis"
+  port: 6379
+  db: 0
+
+hmacSecret:
+  existingSecret: "ccam-hmac-secret"
+  secretKey: "secret"
+
+migration:
+  enabled: true
+  restartOnFailure: false
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

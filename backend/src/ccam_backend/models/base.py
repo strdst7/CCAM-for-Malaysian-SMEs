@@ -1,6 +1,5 @@
 import time
 import secrets
-from typing import ClassVar
 from sqlalchemy import String, DateTime, func
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 

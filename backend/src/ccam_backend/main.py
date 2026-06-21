@@ -2,7 +2,6 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
-from ccam_backend.config import settings
 from ccam_backend.api.health import router as health_router
 from ccam_backend.redis_client import create_redis_pool, close_redis_pool, create_arq, close_arq
 from ccam_backend.database import async_session_factory
@@ -61,7 +60,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
                 return JSONResponse(status_code=401, content={"detail": "Invalid API key"})
 
             body = await request.body()
-            if not verify_signature(signed_key.encode(), request.method, request.url.path, body, timestamp):
+            if not verify_signature(signed_key.encode(), request.method, request.url.path, body, timestamp, signature_b64):
                 from fastapi.responses import JSONResponse
                 return JSONResponse(status_code=401, content={"detail": "Invalid signature"})
 

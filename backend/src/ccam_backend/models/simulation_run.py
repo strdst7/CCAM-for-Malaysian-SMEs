@@ -1,6 +1,5 @@
 from sqlalchemy import String, Text, Integer, JSON, DateTime, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy.sql import func
 from ccam_backend.models.base import Base, ULIDMixin, TimestampMixin
 
 

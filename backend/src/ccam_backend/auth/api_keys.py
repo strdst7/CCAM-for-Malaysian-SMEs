@@ -25,7 +25,7 @@ async def get_active_key_by_prefix(
     result = await db.execute(
         select(ApiKey).where(
             ApiKey.key_prefix == key_prefix,
-            ApiKey.is_active == True,
+            ApiKey.is_active,
         )
     )
     return result.scalar_one_or_none()

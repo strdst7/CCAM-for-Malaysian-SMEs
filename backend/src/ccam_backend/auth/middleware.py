@@ -59,7 +59,7 @@ async def verify_hmac(
 
     body_bytes = await request.body()
     secret = signed_key.encode()
-    if not verify_signature(secret, request.method, request.url.path, body_bytes, timestamp):
+    if not verify_signature(secret, request.method, request.url.path, body_bytes, timestamp, signature_b64):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid signature",

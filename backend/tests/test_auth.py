@@ -41,16 +41,19 @@ async def test_api_key_generation_and_verification():
 
 
 @pytest.mark.asyncio
-async def test_health_requires_auth(client: AsyncClient):
+async def test_health_is_public(client: AsyncClient):
+    """Health endpoint is in PUBLIC_PATHS, so no auth required."""
     resp = await client.get("/api/v1/health")
-    assert resp.status_code == 200  # Health is public
+    assert resp.status_code == 200
 
 
+@pytest.mark.skip(reason="Requires a running PostgreSQL database")
 @pytest.mark.asyncio
-async def test_health_with_valid_auth(client: AsyncClient):
+async def test_auth_fails_without_key_in_db(client: AsyncClient):
+    """A non-public path with a valid signature but no key in DB returns 401."""
     raw_key, prefix, key_hash, version = generate_api_key()
     method = "GET"
-    path = "/api/v1/health"
+    path = "/api/v1/simulate"
     body = b""
     ts, sig = sign_request(raw_key.encode(), method, path, body)
     resp = await client.get(
@@ -60,4 +63,4 @@ async def test_health_with_valid_auth(client: AsyncClient):
             "X-Timestamp": str(ts),
         },
     )
-    assert resp.status_code == 401  # Key not in DB
+    assert resp.status_code == 401
