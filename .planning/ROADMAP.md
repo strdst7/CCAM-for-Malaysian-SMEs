@@ -90,10 +90,13 @@ Plans:
   3. Forecast engine produces accurate demand predictions using an ensemble of LSTM, Prophet, and ARIMA models
   4. Procurement engine generates purchase orders via a supplier adapter interface with configurable lead times
   5. Notification engine routes messages through WhatsApp, email, push, and in-app channels with templated content
-**Plans**: TBD
+**Plans**: 4 plans across 2 waves
 
 Plans:
-- (To be defined during plan-phase 5)
+- [ ] 05-01-PLAN.md — Parser engine (ENG-01) + Menu engineering engine (ENG-02) — regex/NLP parsing + MILP menu optimization
+- [ ] 05-02-PLAN.md — Forecast engine (ENG-03) — LSTM + Prophet + ARIMA ensemble demand forecasting
+- [ ] 05-03-PLAN.md — Procurement engine (ENG-04) + Notification engine (ENG-05) — supplier ABC, PO gen, multi-channel notifications
+- [ ] 05-04-PLAN.md — Backend API integration — 5 routers, DB models, migrations, ARQ worker registration
 
 ## Progress
 
@@ -106,4 +109,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. Backend Foundation | 3/3 | Complete | 2026-06-21 |
 | 3. Simulator-Backend Integration | 2/2 | Complete | 2026-06-21 |
 | 4. Microflows & Worker Jobs | 2/2 | Complete | 2026-06-21 |
-| 5. Advanced Engines | 0/0 | Not started | - |
+| 5. Advanced Engines | 0/4 | Planned | - |
