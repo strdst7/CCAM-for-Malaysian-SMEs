@@ -7,6 +7,11 @@ from ccam_backend.api.simulate import router as simulate_router
 from ccam_backend.api.scenarios import router as scenarios_router
 from ccam_backend.api.tenants import router as tenants_router
 from ccam_backend.api.jobs import router as jobs_router
+from ccam_backend.api.parser import router as parser_router
+from ccam_backend.api.menu import router as menu_router
+from ccam_backend.api.forecast import router as forecast_router
+from ccam_backend.api.procurement import router as procurement_router
+from ccam_backend.api.notification import router as notification_router
 from ccam_backend.redis_client import create_redis_pool, close_redis_pool, create_arq, close_arq
 from ccam_backend.database import async_session_factory
 from ccam_backend.auth.middleware import PUBLIC_PATHS
@@ -87,3 +92,8 @@ app.include_router(simulate_router, prefix="/api/v1")
 app.include_router(scenarios_router, prefix="/api/v1")
 app.include_router(tenants_router, prefix="/api/v1")
 app.include_router(jobs_router, prefix="/api/v1")
+app.include_router(parser_router, prefix="/api/v1")
+app.include_router(menu_router, prefix="/api/v1")
+app.include_router(forecast_router, prefix="/api/v1")
+app.include_router(procurement_router, prefix="/api/v1")
+app.include_router(notification_router, prefix="/api/v1")
