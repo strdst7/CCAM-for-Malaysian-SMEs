@@ -6,8 +6,8 @@ CCAM converts unstructured WhatsApp messages from Malaysian F&B customers into s
 
 ## Phases
 
-- [ ] **Phase 1: Simulator Core (CLI)** — Deterministic digital twin CLI with demand, order, kitchen, stock, and KPI engines plus safety layer
-- [ ] **Phase 2: Backend Foundation** — FastAPI + PostgreSQL + Redis on Kubernetes with tenant isolation and audit logging
+- [x] **Phase 1: Simulator Core (CLI)** — Deterministic digital twin CLI with demand, order, kitchen, stock, and KPI engines plus safety layer
+- [x] **Phase 2: Backend Foundation** — FastAPI + PostgreSQL + Redis on Kubernetes with tenant isolation and audit logging
 - [ ] **Phase 3: Simulator-Backend Integration** — API gateway for simulation, scenario CRUD, and safety gate enforcement
 - [ ] **Phase 4: Microflows & Worker Jobs** — DSL interpreter, bytecode executor, FIFO job queues with retry/DLQ
 - [ ] **Phase 5: Advanced Engines** — Parser (DistilBERT), Menu Engineering (MILP), Forecast (LSTM/Prophet/ARIMA), Procurement, Notification
@@ -27,10 +27,10 @@ CCAM converts unstructured WhatsApp messages from Malaysian F&B customers into s
 **Plans**: 4 plans across 3 waves
 
 Plans:
-- [ ] 01-01-PLAN.md — Project scaffold, data models, RNG manager, scenario loader
-- [ ] 01-02-PLAN.md — Click CLI, safety layer (Gate 1 + Gate 2), output formatters
-- [ ] 01-03-PLAN.md — Five engine pipeline (demand → order → kitchen → stock → KPI)
-- [ ] 01-04-PLAN.md — Full test suite with determinism verification, CLI integration tests
+- [x] 01-01-PLAN.md — Project scaffold, data models, RNG manager, scenario loader
+- [x] 01-02-PLAN.md — Click CLI, safety layer (Gate 1 + Gate 2), output formatters
+- [x] 01-03-PLAN.md — Five engine pipeline (demand → order → kitchen → stock → KPI)
+- [x] 01-04-PLAN.md — Full test suite with determinism verification, CLI integration tests
 
 ### Phase 2: Backend Foundation
 **Goal**: A tenant-isolated FastAPI + PostgreSQL + Redis backend running on Kubernetes with HMAC authentication and an immutable audit log.
@@ -45,9 +45,9 @@ Plans:
 **Plans**: 3 plans across 3 waves
 
 Plans:
-- [ ] 02-01-PLAN.md — Data Foundation: package scaffold, all entity models (8 tables), Alembic migration, docker-compose for PostgreSQL + Redis
-- [ ] 02-02-PLAN.md — API & Auth: FastAPI app, HMAC-SHA256 middleware, audit logger, RLS policies, health endpoint, Redis/ARQ connectivity
-- [ ] 02-03-PLAN.md — CLI & Infrastructure: tenant provisioning CLI, Dockerfile/Helm chart, GitHub Actions CI, integration tests
+- [x] 02-01-PLAN.md — Data Foundation: package scaffold, all entity models (8 tables), Alembic migration, docker-compose for PostgreSQL + Redis
+- [x] 02-02-PLAN.md — API & Auth: FastAPI app, HMAC-SHA256 middleware, audit logger, RLS policies, health endpoint, Redis/ARQ connectivity
+- [x] 02-03-PLAN.md — CLI & Infrastructure: tenant provisioning CLI, Dockerfile/Helm chart, GitHub Actions CI, integration tests
 
 ### Phase 3: Simulator-Backend Integration
 **Goal**: The simulator CLI engine is exposed as a REST API endpoint, scenarios are manageable via CRUD, and the safety gate enforces simulator validation before any production change.
@@ -101,8 +101,8 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Simulator Core (CLI) | 0/4 | Planned | - |
-| 2. Backend Foundation | 0/0 | Not started | - |
+| 1. Simulator Core (CLI) | 4/4 | Complete | 2026-06-21 |
+| 2. Backend Foundation | 3/3 | Complete | 2026-06-21 |
 | 3. Simulator-Backend Integration | 0/0 | Not started | - |
 | 4. Microflows & Worker Jobs | 0/0 | Not started | - |
 | 5. Advanced Engines | 0/0 | Not started | - |
