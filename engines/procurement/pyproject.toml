@@ -1,0 +1,14 @@
+[project]
+name = "ccam-procurement"
+version = "0.1.0"
+description = "CCAM procurement engine — supplier adapters and purchase order generation"
+requires-python = ">=3.14"
+dependencies = [
+    "reportlab>=4.2.0",
+    "sendgrid>=6.11.0",
+]
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+[dependency-groups]
+dev = ["pytest>=9.1.1"]
