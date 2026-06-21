@@ -1,0 +1,15 @@
+[project]
+name = "ccam-mcf"
+version = "0.1.0"
+description = "CCAM microflow DSL compiler and deterministic bytecode executor"
+requires-python = ">=3.14"
+dependencies = ["pyyaml>=6.0.3"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = ["pytest>=9.1.1"]
+
+[tool.uv.sources]
