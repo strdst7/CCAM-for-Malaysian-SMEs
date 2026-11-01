@@ -1,0 +1,87 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+  - package-ecosystem: "uv"
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+  - package-ecosystem: "docker"
+    directory: "/backend"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+  - package-ecosystem: "pip"
+    directory: "/backend"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+  - package-ecosystem: "uv"
+    directory: "/backend"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+  - package-ecosystem: "pip"
+    directory: "/engines/forecast"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+  - package-ecosystem: "pip"
+    directory: "/engines/menu"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+  - package-ecosystem: "uv"
+    directory: "/engines/menu"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+  - package-ecosystem: "pip"
+    directory: "/engines/notification"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+  - package-ecosystem: "uv"
+    directory: "/engines/notification"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+  - package-ecosystem: "pip"
+    directory: "/engines/parser"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+  - package-ecosystem: "uv"
+    directory: "/engines/parser"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+  - package-ecosystem: "pip"
+    directory: "/engines/procurement"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+  - package-ecosystem: "uv"
+    directory: "/engines/procurement"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+  - package-ecosystem: "pip"
+    directory: "/mcf"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+  - package-ecosystem: "uv"
+    directory: "/mcf"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
