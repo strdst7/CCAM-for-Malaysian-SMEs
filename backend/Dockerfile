@@ -1,4 +1,4 @@
-FROM python:3.14-slim AS builder
+FROM python:3.15-slim AS builder
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uv
 
@@ -7,7 +7,7 @@ WORKDIR /app
 COPY pyproject.toml .
 RUN uv sync --no-dev --frozen
 
-FROM python:3.14-slim AS runner
+FROM python:3.15-slim AS runner
 
 RUN groupadd -r ccam && useradd -r -g ccam -d /app -s /bin/false ccam
 
